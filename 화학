@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>분자 구조 그리기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        #molecularInput {
+            padding: 10px;
+            width: 200px;
+        }
+        #drawButton {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>분자 구조 그리기</h1>
+    <input type="text" id="molecularInput" placeholder="분자식 입력 (예: H2O)" />
+    <button id="drawButton">그리기</button>
+    <canvas id="moleculeCanvas" width="400" height="400"></canvas>
+
+    <script>
+        document.getElementById('drawButton').addEventListener('click', function() {
+            const molecularInput = document.getElementById('molecularInput').value;
+            drawMolecule(molecularInput);
+        });
+
+        function drawMolecule(molecule) {
+            const canvas = document.getElementById('moleculeCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // 캔버스 초기화
+
+            // 간단한 예시로 H2O와 CO2 분자 구조 그리기
+            if (molecule.toUpperCase() === "H2O") {
+                // 산소 원자
+                ctx.beginPath();
+                ctx.arc(200, 200, 40, 0, 2 * Math.PI); // 중간 위치의 산소 원자
+                ctx.fillStyle = "red";
+                ctx.fill();
+                ctx.closePath();
+
+                // 수소 원자들
+                ctx.beginPath();
+                ctx.arc(140, 250, 20, 0, 2 * Math.PI); // 왼쪽 수소 원자
+                ctx.fillStyle = "blue";
+                ctx.fill();
+                ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(260, 250, 20, 0, 2 * Math.PI); // 오른쪽 수소 원자
+                ctx.fillStyle = "blue";
+                ctx.fill();
+                ctx.closePath();
+
+                // 결합선
+                ctx.beginPath();
+                ctx.moveTo(200, 200);
+                ctx.lineTo(140, 250);
+                ctx.lineTo(260, 250);
+                ctx.stroke();
+                ctx.closePath();
+            } else if (molecule.toUpperCase() === "CO2") {
+                // 산소 원자들
+                ctx.beginPath();
+                ctx.arc(130, 200, 30, 0, 2 * Math.PI); // 왼쪽 산소 원자
+                ctx.fillStyle = "red";
+                ctx.fill();
+                ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(270, 200, 30, 0, 2 * Math.PI); // 오른쪽 산소 원자
+                ctx.fillStyle = "red";
+                ctx.fill();
+                ctx.closePath();
+
+                // 탄소 원자
+                ctx.beginPath();
+                ctx.arc(200, 200, 40, 0, 2 * Math.PI); // 중앙 탄소 원자
+                ctx.fillStyle = "black";
+                ctx.fill();
+                ctx.closePath();
+
+                // 결합선
